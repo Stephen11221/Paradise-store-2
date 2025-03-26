@@ -59,7 +59,7 @@
             <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
             <div class="p-4">
                 <h3 class="text-lg font-bold">{{ $product->name }}</h3>
-                <p class="text-gray-700 mt-2">${{ number_format($product->price, 2) }}</p>
+                <p class="text-gray-700 mt-2"><span class="text-green-400">Kshs </span> {{ number_format($product->price, 2) }}</p>
                 <form action="" method="POST" class="mt-4">
                     @csrf
                     <button type="submit" class="bg-black hover:text-gray-400 text-white font-bold py-2 px-4 rounded">

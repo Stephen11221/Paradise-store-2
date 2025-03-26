@@ -12,7 +12,7 @@
       <div class="relative text-center text-white px-6">
         <h1 class="text-5xl md:text-6xl font-bold">Unleash Confidence in Every Scent</h1>
         <p class="text-lg md:text-xl mt-4">Premium colognes designed for the modern man.</p>
-        <a href="{{ route('product') }}" class="mt-6 inline-block bg-white text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition">Shop Now</a>
+        <a href="{{ route('product.view') }}" class="mt-6 inline-block bg-white text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition">Shop Now</a>
       </div>
     </div>
   

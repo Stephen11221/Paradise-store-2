@@ -16,7 +16,8 @@
             <nav class="mt-5">
                 <a href="{{ route('dashboard') }}" class="block py-2 px-3 hover:bg-blue-700 rounded">Home</a>
                 <a href="{{ route('dashboard.createproduct') }}" class="block py-2 px-3 hover:bg-blue-700 rounded">Add Products</a>
-                <a href="" class="block py-2 px-3 hover:bg-blue-700 rounded">Edit about</a>
+                <a href="" class="block py-2 px-3 hover:bg-red-200 hover:text-black ">Edit about</a>
+                
                 <a href="" class="block py-2 px-3 hover:bg-blue-700 rounded">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf

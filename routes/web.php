@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewProductController;
 
+use App\Http\Controllers\AboutController;
 
 // Public routes (accessible without authentication)
 Route::get('/', function () {
@@ -55,6 +56,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/products/edit/{id}', [ProductController::class, 'edit'])->name('dashboard.editproduct');
     Route::put('/dashboard/products/update/{id}', [ProductController::class, 'update'])->name('dashboard.updateproduct');
     Route::delete('/dashboard/products/delete/{id}', [ProductController::class, 'destroy'])->name('dashboard.deleteproduct');
+
+    // about route
+
+
+
+
+});
+Route::middleware(['auth'])->group(function () {
+    // GET route to show the create about form
+    Route::get('/dashboard-file/createabout', [AboutController::class, 'create'])
+        ->name('about.create');
+
+    // POST route to store the new about entry (optional)
+    Route::post('/dashboard-file/createabout', [AboutController::class, 'store'])
+        ->name('about.store');
+
+        // Show the edit form
+Route::get('/dashboard-flie/viewabout/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
+
+// Handle the update form submission
+Route::put('/dashboard-flie/viewabout/{id}', [AboutController::class, 'update'])->name('about.update');
+
 });
 
 // Logout Route
