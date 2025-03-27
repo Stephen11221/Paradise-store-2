@@ -1,55 +1,30 @@
-@extends('layouts.app')
+@extends('front-dashboard.layout')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Edit About Section</h1>
+    <h1 class="text-2xl font-bold mb-4">About Section</h1>
 
-    <!-- Display validation errors if any -->
-    @if ($errors->any())
-        <div class="bg-red-100 text-red-600 p-3 mb-4">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>- {{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    @if ($about)
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">Title</th>
+                    <th class="border p-2">Description</th>
+                    <th class="border p-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border p-2">{{ $about->title }}</td>
+                    <td class="border p-2">{{ $about->description }}</td>
+                    <td class="border p-2 text-center">
+                        <a href="{{ route('about.edit', $about->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    @else
+        <p class="text-gray-600">No About section found.</p>
     @endif
-
-    <!-- Success message -->
-    @if (session('success'))
-        <div class="bg-green-100 text-green-600 p-3 mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <form action="{{ route('about.update', $about->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">Title</label>
-            <input 
-                type="text" 
-                name="title" 
-                class="w-full p-2 border rounded" 
-                value="{{ old('title', $about->title) }}" 
-                required
-            >
-        </div>
-
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">Description</label>
-            <textarea 
-                name="description" 
-                rows="5" 
-                class="w-full p-2 border rounded"
-                required
-            >{{ old('description', $about->description) }}</textarea>
-        </div>
-
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-            Update
-        </button>
-    </form>
 </div>
 @endsection

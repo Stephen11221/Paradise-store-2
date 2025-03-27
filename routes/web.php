@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewProductController;
-
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ViewaboutController;
+use App\Http\Controllers\CartController;
 
 // Public routes (accessible without authentication)
 Route::get('/', function () {
@@ -20,9 +22,7 @@ Route::get('/men', function () {
     return view('men');
 })->name('men');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', [ViewaboutController::class, 'show'])->name('about.view');
 //
 
 Route::get('/product', [ViewProductController::class, 'index'])->name('product.view');
@@ -36,7 +36,22 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-//  PROTECTED ROUTES (Only for authenticated users)
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+
+
+//add catt
+
+// Cart Routes
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('cart.view');
+    Route::post('/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
+
+//PROTECTED ROUTES (Only for authenticated users)
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Dashboard
@@ -60,10 +75,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // about route
 
 
+    Route::get('dashboard-file/viewcontact', [ContactController::class, 'index'])->name('contact.index');
+
+    // about routes
+    Route::get('dashboard-file/viewabout', [AboutController::class, 'index'])->name('about.index');
+
+    Route::get('/dashboard-file/editabout/{id}', [AboutController::class, 'edit'])->name('about.edit');
+    Route::put('/dashboard-file/updateabout/{id}', [AboutController::class, 'update'])->name('about.update');
+    
+
+
 
 
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {    
     // GET route to show the create about form
     Route::get('/dashboard-file/createabout', [AboutController::class, 'create'])
         ->name('about.create');
@@ -72,11 +97,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard-file/createabout', [AboutController::class, 'store'])
         ->name('about.store');
 
-        // Show the edit form
-Route::get('/dashboard-flie/viewabout/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
+            // Show the edit form
+    Route::get('/dashboard-flie/viewabout/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
 
 // Handle the update form submission
 Route::put('/dashboard-flie/viewabout/{id}', [AboutController::class, 'update'])->name('about.update');
+
+
+
 
 });
 

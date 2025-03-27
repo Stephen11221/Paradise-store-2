@@ -10,18 +10,26 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 bg-blue-900 text-white p-5">
-            <h2 class="text-2xl font-bold">{{ Auth::user()->name }}</h2>
+        <aside class="w-64 bg-black  text-white p-5">
+
+        <div class="flex justify-center mb-6">
+                    <img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="h-16 rounded-full   w-16">
+            </div>
+
+        <h2 class="text-2xl font-bold">{{ Auth::user()->name }}</h2>
             <p class="text-gray">{{ Auth::user()->email }}</p>
+
             <nav class="mt-5">
-                <a href="{{ route('dashboard') }}" class="block py-2 px-3 hover:bg-blue-700 rounded">Home</a>
-                <a href="{{ route('dashboard.createproduct') }}" class="block py-2 px-3 hover:bg-blue-700 rounded">Add Products</a>
-                <a href="" class="block py-2 px-3 hover:bg-red-200 hover:text-black ">Edit about</a>
-                
-                <a href="" class="block py-2 px-3 hover:bg-blue-700 rounded">Settings</a>
+                <a href="{{ route('dashboard') }}" class="block py-2 px-3 hover:bg-gray-700 rounded">Home</a>
+                <a href="{{ route('dashboard.createproduct') }}" class="block py-2 px-3 hover:bg-gray-700 rounded">Add Products</a>
+                <a href="{{ route('about.index') }}" class="block py-2 px-3 hover:bg-gray-700 rounded ">View About</a>
+            
+                <a href="{{ route('contact.index') }}" class="block py-2 px-3 hover:bg-gray-700">View Contact</a>
+                <a href="" class="block px-3  py-2 hover:bg-blue-700">Subscribers </a>
+                <a href="" class="block py-2 px-3 hover:bg-gray-700 rounded mt-32">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
-                    <button type="submit" class="block py-2 px-3 hover:bg-blue-600 rounded">Logout</button>
+                    <button type="submit" class="bw-12 lock py-2 px-3 hover:bg-blue-600 rounded">Logout</button>
                 </form>
 
             </nav>

@@ -8,7 +8,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white text-center p-4 text-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white text-center p-4 text-white dark:bg-gray-800 overflow-hidden shadow-sm cursor-pointer  sm:rounded-lg">
                 <h4>Paradise store</h4>
             </div>
         </div>

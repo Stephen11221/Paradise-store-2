@@ -4,12 +4,12 @@
 <div class="container mx-auto px-4">
     <h1 class="text-2xl font-bold mb-4">{{ isset($product) ? 'Edit Product' : 'Create a Product' }}</h1>
 
-    <!-- Debugging: Show Data -
+    <!-- Debugging: Show Data 
     <div class="bg-gray-100 p-4 mb-4 text-sm rounded">
         <p><strong>Product Data:</strong></p>
         <pre class="text-gray-700">{{ print_r($product ?? 'No Product Data', true) }}</pre>
-    </div>
-\-->
+    </div> -->
+    
     @if(session('success'))
         <p class="text-green-500">{{ session('success') }}</p>
     @endif

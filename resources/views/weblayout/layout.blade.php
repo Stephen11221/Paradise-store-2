@@ -62,13 +62,13 @@
         <!-- Desktop Menu -->
         <ul class="hidden md:flex space-x-6 text-lg" id="nav-links">
             <li><a href="{{ route('home') }}" class="hover:text-gray-400">Home</a></li>
-            <li><a href="{{ route('about') }}" class="hover:text-gray-400">About</a></li>
+            <li><a href="{{ route('about.view') }}" class="hover:text-gray-400">About</a></li>
             
             <li><a href="{{ route('women') }}" class="hover:text-gray-400">Women</a></li> 
             <li><a href="{{ route('men') }}" class="hover:text-gray-400">Men</a></li>             
             <li><a href="{{ route('product.view') }}" class="hove:text-gray-400">Product </a></li>      
             <li><a href="{{ route('brand') }}" class="hover:text-gray-400">Brand</a></li>
-            <li><a href="{{ route('contact') }}" class="hover:text-gray-400">Contact</a></li>
+            <li><a href="{{ route('contact.store' ) }}" class="hover:text-gray-400">Contact</a></li>
                  <!-- Cart Icon -->
                  <a href="" class="relative hover:text-gray-400">
                 <i class="material-icons">shopping_cart</i>
@@ -80,7 +80,7 @@
     <!-- Mobile Menu -->
     <ul class="hidden flex flex-col space-y-2 bg-black p-4 md:hidden" id="mobile-menu">
         <li><a href="{{ route('home') }}" class="hover:text-gray-400">Home</a></li>
-        <li><a href="{{ route('about') }}"  class="hover:text-gray-400">About</a></li>
+        <li><a href="{{ route('about.view') }}"  class="hover:text-gray-400">About</a></li>
         <li><a href="{{ route('women') }}" class="hover:text-gray-400">Women</a></li> 
         <li><a href="{{ route('men') }}" class="hover:text-gray-400">Men</a></li>
         <li><a href="{{ route('product.view') }}" class="hover:text-gray-400">Product</a>        </li>                    
