@@ -3,9 +3,10 @@
 @section('content')
 <div class="container">
     <h2>Available product</h2>
-    <div>
+    <div class="flex ">
+        <a href="{{ route('dashboard.createproduct') }}" class="block py-2 px-3 bg-red-600 rounded"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
-    </div>
+    </div>  <br>
     <div class="overflow-x-auto max-h-800 border border-gray-300 rounded-lg">
         <table class="w-full min-w-max border-collapse border border-gray-300">
             <thead class="bg-gray-100">
