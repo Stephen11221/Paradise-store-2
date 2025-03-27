@@ -8,6 +8,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ViewaboutController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AvailabliproductController;
+
 
 // Public routes (accessible without authentication)
 Route::get('/', function () {
@@ -82,7 +84,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard-file/editabout/{id}', [AboutController::class, 'edit'])->name('about.edit');
     Route::put('/dashboard-file/updateabout/{id}', [AboutController::class, 'update'])->name('about.update');
-    
+
+    Route::get('/dashboard-file/availableproduct', [AvailabliproductController::class, 'index'])->name('product-view');
+
+ 
 
 
 

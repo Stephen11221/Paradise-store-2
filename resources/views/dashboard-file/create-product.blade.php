@@ -35,11 +35,10 @@
             <label class="block text-gray-700">Status</label>
             <select name="status" class="w-full p-2 border rounded">
                 <option value="available">Available</option>
-                <option value="coming_soon'">coming_soon'</option>
             </select>
         </div>
 
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Product</button>
+        <button type="submit" class="bg-black text-white px-4 py-2 rounded"> Add Product</button>
     </form>
 </div>
 @endsection

@@ -6,6 +6,11 @@
     <title>Dashboard</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
@@ -20,10 +25,10 @@
             <p class="text-gray">{{ Auth::user()->email }}</p>
 
             <nav class="mt-5">
-                <a href="{{ route('dashboard') }}" class="block py-2 px-3 hover:bg-gray-700 rounded">Home</a>
+                <a href="{{ route('dashboard') }}" class="block py-2 px-3 hover:bg-gray-700 rounded"> Home</a>
                 <a href="{{ route('dashboard.createproduct') }}" class="block py-2 px-3 hover:bg-gray-700 rounded">Add Products</a>
+                <a href="{{ route('product-view') }}" class="block py-2 px-3  hover:bg-gray-700">Available Product </a>
                 <a href="{{ route('about.index') }}" class="block py-2 px-3 hover:bg-gray-700 rounded ">View About</a>
-            
                 <a href="{{ route('contact.index') }}" class="block py-2 px-3 hover:bg-gray-700">View Contact</a>
                 <a href="" class="block px-3  py-2 hover:bg-blue-700">Subscribers </a>
                 <a href="" class="block py-2 px-3 hover:bg-gray-700 rounded mt-32">Settings</a>

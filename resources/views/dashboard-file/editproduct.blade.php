@@ -9,7 +9,7 @@
         <p><strong>Product Data:</strong></p>
         <pre class="text-gray-700">{{ print_r($product ?? 'No Product Data', true) }}</pre>
     </div> -->
-    
+
     @if(session('success'))
         <p class="text-green-500">{{ session('success') }}</p>
     @endif
@@ -58,8 +58,8 @@
             </select>
         </div>
 
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-            {{ isset($product) ? 'Update Product' : 'Add Product' }}
+        <button type="submit" class="bg-black  text-white px-4 py-2 rounded">
+            <i class="fa fa-pencil" aria-hidden="true"></i>    {{ isset($product) ? 'Update Product' : 'Add Product' }}
         </button>
     </form>
 </div>
