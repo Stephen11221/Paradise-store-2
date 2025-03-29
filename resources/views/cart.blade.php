@@ -4,7 +4,7 @@
 <div class="container">
     <h2 class="mb-4">Shopping Cart</h2>
 
-    @if(session('cart'))
+    @if($cartItems->count() > 0)
         <table class="table">
             <thead>
                 <tr>
@@ -17,27 +17,24 @@
                 </tr>
             </thead>
             <tbody>
-                @php $total = 0; @endphp
-                @foreach(session('cart') as $id => $details)
-                    @php $subtotal = $details['price'] * $details['quantity']; @endphp
+                @foreach($cartItems as $item)
                     <tr>
-                        <td><img src="{{ asset($details['image']) }}" width="50" alt="Product Image"></td>
-                        <td>{{ $details['name'] }}</td>
-                        <td>Kshs {{ number_format($details['price'], 2) }}</td>
+                        <td><img src="{{ asset($item->options->image) }}" width="50" alt="Product Image"></td>
+                        <td>{{ $item->name }}</td>
+                        <td>Kshs {{ number_format($item->price, 2) }}</td>
                         <td>
-                            <form action="{{ route('cart.update', $id) }}" method="POST">
+                            <form action="{{ route('cart.update', $item->rowId) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" min="1" class="form-control" style="width: 60px; display: inline-block;">
+                                <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="form-control" style="width: 60px; display: inline-block;">
                                 <button type="submit" class="btn btn-sm btn-success">Update</button>
                             </form>
                         </td>
-                        <td>Kshs {{ number_format($subtotal, 2) }}</td>
+                        <td>Kshs {{ number_format($item->subtotal, 2) }}</td>
                         <td>
-                            <a href="{{ route('cart.remove', $id) }}" class="btn btn-sm btn-danger">Remove</a>
+                            <a href="{{ route('cart.remove', $item->rowId) }}" class="btn btn-sm btn-danger">Remove</a>
                         </td>
                     </tr>
-                    @php $total += $subtotal; @endphp
                 @endforeach
             </tbody>
         </table>

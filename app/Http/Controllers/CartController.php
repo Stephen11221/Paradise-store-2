@@ -1,44 +1,46 @@
 <?php
 
-namespace App\Http\Controllers;  
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\Product; // Ensure Product model is imported
 
 class CartController extends Controller
 {
-
+    // Show the cart
     public function index()
     {
-        $cartItems = Cart::items();
-        $total = Cart::total();
-        
+        $cartItems = Cart::content(); // Get all cart items
+        $total = Cart::total(); // Get cart total
         return view('cart', compact('cartItems', 'total'));
     }
 
     // Add item to cart
-    public function addToCart(Request $request)
-{
-    $validated = $request->validate([
-        'id' => 'required|exists:products,id',
-        'quantity' => 'sometimes|integer|min:1',
-        'price' => 'required|numeric|min:0'
-    ]);
-
-    Cart::add([
-        'id' => $validated['id'],
-        'quantity' => $validated['quantity'] ?? 1,
-        'price' => $validated['price']
-    ]);
-    return response()->json(['message'=>'item added']);
-}   
-
-    // View cart items
-    public function viewCart()
+    public function add(Request $request)
     {
-        $cartItems = Cart::content();
-        return view('cart', compact('cartItems'));
+        $validated = $request->validate([
+            'id' => 'required|exists:products,id',
+            'quantity' => 'sometimes|integer|min:1',
+            'price' => 'required|numeric|min:0'
+        ]);
+
+        $product = Product::find($validated['id']); // Fetch product
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'quantity' => $validated['quantity'] ?? 1,
+            'price' => $product->price,
+            'options' => ['image' => $product->image], // Store image in options
+        ]);
+        
+
+        return response()->json(['message' => 'Item added to cart']);
     }
 
     // Remove item from cart

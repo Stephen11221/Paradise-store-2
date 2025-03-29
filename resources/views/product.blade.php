@@ -64,6 +64,20 @@
             <div class="p-4">
                 <h3 class="text-lg font-bold">{{ $product->name }}</h3>
                 <p class="text-gray-700 mt-2"><span class="text-green-400">Kshs </span> {{ number_format($product->price, 2) }}</p>
+                <label for="quantity-{{ $product->id }}" class="block text-gray-700">Quantity:</label>
+                <button type="button" onclick="decreaseQuantity({{ $product->id }})" 
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">
+                -
+            </button>
+
+            <input type="number" name="quantity" id="quantity-{{ $product->id }}" min="1" value="1"
+                class="w-16 border rounded py-1 px-2 text-center">
+
+            <button type="button" onclick="increaseQuantity({{ $product->id }})" 
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">
+                +
+            </button>
+
                 <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mt-4">
                     @csrf
                     <button type="submit" class="bg-black hover:text-gray-400 text-white font-bold py-2 px-4 rounded">
@@ -76,4 +90,17 @@
         @endforeach
     </div>
 </div>
+<script>
+        function increaseQuantity(productId) {
+        let input = document.getElementById('quantity-' + productId);
+        input.value = parseInt(input.value) + 1;
+    }
+
+    function decreaseQuantity(productId) {
+        let input = document.getElementById('quantity-' + productId);
+        if (input.value > 1) {
+            input.value = parseInt(input.value) - 1;
+        }
+    }
+</script>
 @endsection

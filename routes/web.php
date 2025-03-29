@@ -10,6 +10,8 @@ use App\Http\Controllers\ViewaboutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AvailabliproductController;
 
+use App\Http\Controllers\SubscriberController;
+
 
 // Public routes (accessible without authentication)
 Route::get('/', function () {
@@ -40,6 +42,7 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+Route::post('/about', [SubscriberController::class, 'submitEmail'])->name('subscribe');
 
 
 //add catt
