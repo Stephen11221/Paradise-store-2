@@ -103,10 +103,23 @@
     <div class="container mx-auto px-6 text-center">
       <h2 class="text-4xl font-bold">Join Our Fragrance Family</h2>
       <p class="text-lg mt-2">Sign up for exclusive offers and new arrivals.</p>
-      <form class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-        <input type="email" placeholder="Enter your email" class="px-4 py-3 rounded-lg text-gray-900 w-full sm:w-80">
-        <button type="submit" class="bg-black px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-800 transition">Subscribe</button>
-      </form>
+      <footer class=" text-white p-6 text-center mt-10">
+    <p class="mb-3">Subscribe to our newsletter for updates</p>
+    
+    @if(session('success'))
+        <p class="text-green-400">{{ session('success') }}</p>
+    @endif
+
+    <form action="{{ route('subscribe') }}" method="POST" class="mt-2">
+        @csrf
+        <input type="email" name="email" placeholder="Enter your email" required
+            class="p-2 border rounded w-64 text-black">
+        <button type="submit" class="bg-red hover:bg-red-600 text-white p-2 rounded">
+            Subscribe
+        </button>
+    </form>
+</footer>
+
     </div>
   </section>
   

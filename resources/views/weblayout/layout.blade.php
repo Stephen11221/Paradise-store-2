@@ -117,22 +117,22 @@
     
             <!-- Newsletter Subscription -->
             <div>
-.<footer class="bg-gray-800 text-white p-6 text-center mt-10">
-    <p class="mb-3">Subscribe to our newsletter for updates</p>
-    
-    @if(session('success'))
-        <p class="text-green-400">{{ session('success') }}</p>
-    @endif
+            <div class=" text-white p-6 text-center mt-10">
+                <p class="mb-3">Subscribe to our newsletter for updates</p>
+                
+                @if(session('success'))
+                    <p class="text-green-400">{{ session('success') }}</p>
+                @endif
 
-    <form action="{{ route('subscribe') }}" method="POST" class="mt-2">
-        @csrf
-        <input type="email" name="email" placeholder="Enter your email" required
-            class="p-2 border rounded w-64 text-black">
-        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded">
-            Subscribe
-        </button>
-    </form>
-</footer>
+                <form action="{{ route('subscribe') }}" method="POST" class="mt-2">
+                    @csrf
+                    <input type="email" name="email" placeholder="Enter your email" required
+                        class="p-2 border rounded w-64 text-black">
+                    <button type="submit" class="bg-gray-800 hover:bg-red-600 text-white p-2 rounded">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
 
             </div>
     

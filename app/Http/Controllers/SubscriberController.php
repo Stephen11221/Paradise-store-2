@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class SubscriberController extends Controller
 {
+    public function showSubscribers()
+{
+    $subscribers = Subscriber::all(); // Fetch 
+    return view('dashboard-file.viewsubscribers', compact('subscribers')); // Pass data to the view
+
+}
     public function submitEmail(Request $request)
     {
         // Log the request data for debugging
@@ -37,13 +43,5 @@ class SubscriberController extends Controller
     }
 
     // Fetch all subscribers (for testing)
-    public function getSubscribers()
-    {
-        $subscribers = Subscriber::all();
-        
-        // Dump subscriber data for debugging
-        // dd($subscribers);
-
-        return response()->json($subscribers);
-    }
+    
 }

@@ -113,6 +113,7 @@ Route::put('/dashboard-flie/viewabout/{id}', [AboutController::class, 'update'])
 
 
 
+Route::get('/dashboard-file/viewsubscribers', [SubscriberController::class, 'showSubscribers'])->name('showsubs');
 
 });
 

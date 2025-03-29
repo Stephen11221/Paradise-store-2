@@ -30,7 +30,7 @@
                 <a href="{{ route('product-view') }}" class="block py-2 px-3  hover:bg-gray-700">Available Product </a>
                 <a href="{{ route('about.index') }}" class="block py-2 px-3 hover:bg-gray-700 rounded ">View About</a>
                 <a href="{{ route('contact.index') }}" class="block py-2 px-3 hover:bg-gray-700">View Contact</a>
-                <a href="" class="block px-3  py-2 hover:bg-blue-700">Subscribers </a>
+                <a href="{{ route('showsubs') }}" class="block px-3  py-2 hover:bg-blue-700">Subscribers </a>
                 <a href="" class="block py-2 px-3 hover:bg-gray-700 rounded mt-32">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
