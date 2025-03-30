@@ -4,94 +4,77 @@
 <section class="relative bg-gray-900 py-20">
     <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-white text-center mb-10">Our Products</h2>
-        
     </div>
 </section>
 
-
-<style>
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
-}
-</style>
- <!---
-<section class="relative bg-gradient-to-r from-purple-700 via-pink-600 to-red-500 py-20">
-    <div class="container mx-auto px-6">
-        <h2 class="text-5xl font-extrabold text-white text-center mb-10 drop-shadow-lg">Luxury Perfume Collection</h2>
-
-        <div x-data="{ 
-                products: [
-                    { id: 1, name: 'Rose Essence', image: '/assets/perfumes/rose-essence.jpg', price: 'KSh 1,500' },
-                    { id: 2, name: 'Midnight Oud', image: '/assets/perfumes/midnight-oud.jpg', price: 'KSh 2,200' },
-                    { id: 3, name: 'Vanilla Musk', image: '/assets/perfumes/vanilla-musk.jpg', price: 'KSh 1,800' },
-                    { id: 4, name: 'Ocean Breeze', image: '/assets/perfumes/ocean-breeze.jpg', price: 'KSh 2,500' },
-                    { id: 5, name: 'Jasmine Noir', image: '/assets/perfumes/jasmine-noir.jpg', price: 'KSh 3,000' },
-                    { id: 6, name: 'Citrus Bloom', image: '/assets/perfumes/citrus-bloom.jpg', price: 'KSh 2,000' }
-                ]
-            }"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-    
-            7Perfume Cards 
-            <template x-for="product in products" :key="product.id">
-                <div class="relative bg-white rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105 animate-fade-in">
-                    <img :src="product.image" class="w-full h-96 object-cover">
-                    
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2" x-text="product.name"></h3>
-                        <p class="text-xl text-gray-700 font-semibold" x-text="product.price"></p>
-                        <button class="mt-4 px-6 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold rounded-full shadow-md transition hover:scale-110">
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-            </template>
-
-        </div>
-    </div>
-</section>-->
 <div class="container mx-auto mt-5">
-        <a href="{{ route('cart.view') }}" class="bg-black text-white py-2 px-3 rounded ">View cart list</a>
+    <a href="{{ route('cart.view') }}" class="bg-black text-white py-2 px-3 rounded">View Cart (<span id="cart-count">{{ Cart::count() }}</span>)</a>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  mt-12 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-12 gap-6">
         @foreach($getAllProducts as $product)
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
             <div class="p-4">
                 <h3 class="text-lg font-bold">{{ $product->name }}</h3>
                 <p class="text-gray-700 mt-2"><span class="text-green-400">Kshs </span> {{ number_format($product->price, 2) }}</p>
+
                 <label for="quantity-{{ $product->id }}" class="block text-gray-700">Quantity:</label>
-                <button type="button" onclick="decreaseQuantity({{ $product->id }})" 
-            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">
-                -
-            </button>
+                <button type="button" onclick="decreaseQuantity({{ $product->id }})" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">-</button>
+                <input type="number" id="quantity-{{ $product->id }}" min="1" value="1" class="w-16 border rounded py-1 px-2 text-center">
+                <button type="button" onclick="increaseQuantity({{ $product->id }})" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">+</button>
 
-            <input type="number" name="quantity" id="quantity-{{ $product->id }}" min="1" value="1"
-                class="w-16 border rounded py-1 px-2 text-center">
-
-            <button type="button" onclick="increaseQuantity({{ $product->id }})" 
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-3 rounded">
-                +
-            </button>
-
-                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="mt-4">
-                    @csrf
-                    <button type="submit" class="bg-black hover:text-gray-400 text-white font-bold py-2 px-4 rounded">
-                        Add to Cart
-                    </button>
-                </form>
-
+                <button onclick="addToCart({{ $product->id }})" class="mt-4 px-6 py-2 bg-black text-white font-bold rounded shadow-md transition hover:scale-110">
+                    Add to Cart
+                </button>
             </div>
         </div>
         @endforeach
     </div>
 </div>
+
+<!-- Popup Notification -->
+<div id="cart-popup" class="hidden fixed bottom-10 right-10 bg-black text-white py-3 px-5 rounded shadow-lg transition-opacity duration-300">
+    <p id="popup-text"></p>
+</div>
+
 <script>
-        function increaseQuantity(productId) {
+    function addToCart(productId) {
+        let quantity = document.getElementById('quantity-' + productId).value;
+
+        fetch("{{ route('cart.add', '') }}/" + productId, {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateCartCount(data.cartCount);
+                showPopup(data.productName);
+            } else {
+                alert("Failed to add product.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    function updateCartCount(count) {
+        document.getElementById("cart-count").textContent = count;
+    }
+
+    function showPopup(productName) {
+        let popup = document.getElementById("cart-popup");
+        let popupText = document.getElementById("popup-text");
+        popupText.innerHTML = `<b>${productName}</b> added to cart! <a href="{{ route('cart.view') }}" class="text-blue-500 underline">View Cart</a>`;
+
+        popup.classList.remove("hidden");
+        setTimeout(() => popup.classList.add("hidden"), 3000);
+    }
+
+    function increaseQuantity(productId) {
         let input = document.getElementById('quantity-' + productId);
         input.value = parseInt(input.value) + 1;
     }

@@ -3,57 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Models\Product; // Ensure Product model is imported
+use Cart;
+use App\Models\Product;
 
 class CartController extends Controller
 {
-    // Show the cart
-    public function index()
+    // View Cart Page
+    public function viewCart()
     {
-        $cartItems = Cart::content(); // Get all cart items
-        $total = Cart::total(); // Get cart total
-        return view('cart', compact('cartItems', 'total'));
+        $cartItems = Cart::content();
+        return view('cart', compact('cartItems'));
     }
 
-    // Add item to cart
-    public function add(Request $request)
+    // Add to Cart
+    public function addToCart(Request $request, $id)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:products,id',
-            'quantity' => 'sometimes|integer|min:1',
-            'price' => 'required|numeric|min:0'
-        ]);
-
-        $product = Product::find($validated['id']); // Fetch product
-
-        if (!$product) {
-            return response()->json(['error' => 'Product not found'], 404);
-        }
+        $product = Product::findOrFail($id);
+        $quantity = $request->input('quantity', 1);
 
         Cart::add([
             'id' => $product->id,
             'name' => $product->name,
-            'quantity' => $validated['quantity'] ?? 1,
             'price' => $product->price,
-            'options' => ['image' => $product->image], // Store image in options
+            'quantity' => $quantity,
+            'attributes' => ['image' => $product->image]
         ]);
-        
 
-        return response()->json(['message' => 'Item added to cart']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Product added to cart!',
+            'productName' => $product->name,
+            'cartCount' => Cart::count() // Get updated cart count
+        ]);
     }
 
-    // Remove item from cart
+    // Remove from Cart
     public function removeFromCart($rowId)
     {
         Cart::remove($rowId);
-        return redirect()->back()->with('success', 'Product removed from cart!');
+        return back()->with('success', 'Product removed from cart!');
     }
 
-    // Clear all cart items
-    public function clearCart()
+    // Update Cart
+    public function updateCart(Request $request, $rowId)
     {
-        Cart::destroy();
-        return redirect()->back()->with('success', 'Cart cleared!');
+        Cart::update($rowId, $request->quantity);
+        return back()->with('success', 'Cart updated successfully!');
     }
 }

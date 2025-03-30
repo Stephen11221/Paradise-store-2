@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ViewaboutController;
 use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\AvailabliproductController;
 
 use App\Http\Controllers\SubscriberController;
@@ -48,13 +49,11 @@ Route::post('/about', [SubscriberController::class, 'submitEmail'])->name('subsc
 //add catt
 
 // Cart Routes
-Route::prefix('cart')->group(function () {
-    Route::get('/', [CartController::class, 'index'])->name('cart.view');
-    Route::post('/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/update/{id}', [CartController::class, 'update'])->name('cart.update');
-    Route::post('/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
-});
+
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove/{rowId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/update/{rowId}', [CartController::class, 'updateCart'])->name('cart.update');
 
 //PROTECTED ROUTES (Only for authenticated users)
 Route::middleware(['auth', 'verified'])->group(function () {
