@@ -1,48 +1,42 @@
-@extends('weblayout.layout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">Shopping Cart</h2>
-
-    @if($cartItems->count() > 0)
+    <h2>Shopping Cart</h2>
+    
+    @if ($cartItems->isEmpty())
+        <p>Your cart is empty.</p>
+    @else
         <table class="table">
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
+                    <th>Product</th>
                     <th>Quantity</th>
+                    <th>Price</th>
                     <th>Total</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($cartItems as $item)
+                @foreach ($cartItems as $item)
                     <tr>
-                        <td><img src="{{ asset($item->options->image) }}" width="50" alt="Product Image"></td>
-                        <td>{{ $item->name }}</td>
-                        <td>Kshs {{ number_format($item->price, 2) }}</td>
+                        <td>{{ $item->product->name }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>${{ number_format($item->price, 2) }}</td>
+                        <td>${{ number_format($item->price * $item->quantity, 2) }}</td>
                         <td>
-                            <form action="{{ route('cart.update', $item->rowId) }}" method="POST">
+                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                 @csrf
-                                @method('PUT')
-                                <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="form-control" style="width: 60px; display: inline-block;">
-                                <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Remove</button>
                             </form>
-                        </td>
-                        <td>Kshs {{ number_format($item->subtotal, 2) }}</td>
-                        <td>
-                            <a href="{{ route('cart.remove', $item->rowId) }}" class="btn btn-sm btn-danger">Remove</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <h4>Total: Kshs {{ number_format($total, 2) }}</h4>
-        <a href="#" class="btn btn-primary">Proceed to Checkout</a>
-    @else
-        <p>Your cart is empty.</p>
-        <a href="{{ url('/product') }}" class="btn btn-secondary">Continue Shopping</a>
     @endif
+
+    <a href="{{ route('products.index') }}" class="btn btn-primary">Continue Shopping</a>
 </div>
 @endsection

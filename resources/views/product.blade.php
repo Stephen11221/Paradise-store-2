@@ -8,7 +8,7 @@
 </section>
 
 <div class="container mx-auto mt-5">
-    <a href="{{ route('cart.view') }}" class="bg-black text-white py-2 px-3 rounded">View Cart (<span id="cart-count">{{ Cart::count() }}</span>)</a>
+    <a href="z" class="bg-black text-white py-2 px-3 rounded">View Cart (<span id="cart-count">{{ Cart::count() }}</span>)</a>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-12 gap-6">
         @foreach($getAllProducts as $product)
@@ -38,52 +38,6 @@
 </div>
 
 <script>
-    function addToCart(productId) {
-        let quantity = document.getElementById('quantity-' + productId).value;
-
-        fetch("{{ route('cart.add', '') }}/" + productId, {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ quantity: quantity })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateCartCount(data.cartCount);
-                showPopup(data.productName);
-            } else {
-                alert("Failed to add product.");
-            }
-        })
-        .catch(error => console.error("Error:", error));
-    }
-
-    function updateCartCount(count) {
-        document.getElementById("cart-count").textContent = count;
-    }
-
-    function showPopup(productName) {
-        let popup = document.getElementById("cart-popup");
-        let popupText = document.getElementById("popup-text");
-        popupText.innerHTML = `<b>${productName}</b> added to cart! <a href="{{ route('cart.view') }}" class="text-blue-500 underline">View Cart</a>`;
-
-        popup.classList.remove("hidden");
-        setTimeout(() => popup.classList.add("hidden"), 3000);
-    }
-
-    function increaseQuantity(productId) {
-        let input = document.getElementById('quantity-' + productId);
-        input.value = parseInt(input.value) + 1;
-    }
-
-    function decreaseQuantity(productId) {
-        let input = document.getElementById('quantity-' + productId);
-        if (input.value > 1) {
-            input.value = parseInt(input.value) - 1;
-        }
-    }
+    
 </script>
 @endsection

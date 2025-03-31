@@ -37,8 +37,12 @@
             </div>
 
             <!-- Forgot Password & Submit Button -->
+             <div class="mt-6">
+
+             <a href="{{ route('register') }}" class="text-gray-400 mt-12"> I Don't have an account</a>  
+             </div>
+
             <div class="flex items-center justify-between mt-6">
-              <a href="{{ route('register') }}" class="text-gray-400">Don't an account</a>  
                @if (Route::has('password.request'))
                     <a class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}

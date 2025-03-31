@@ -32,7 +32,6 @@ Route::get('/about', [ViewaboutController::class, 'show'])->name('about.view');
 
 Route::get('/product', [ViewProductController::class, 'index'])->name('product.view');
 
-
 Route::get('/brand', function () {
     return view('brand');
 })->name('brand');
@@ -48,12 +47,7 @@ Route::post('/about', [SubscriberController::class, 'submitEmail'])->name('subsc
 
 //add catt
 
-// Cart Routes
-
-Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
-Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/remove/{rowId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-Route::post('/cart/update/{rowId}', [CartController::class, 'updateCart'])->name('cart.update');
+// Cart Rout
 
 //PROTECTED ROUTES (Only for authenticated users)
 Route::middleware(['auth', 'verified'])->group(function () {
