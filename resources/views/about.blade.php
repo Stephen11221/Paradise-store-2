@@ -7,7 +7,7 @@
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <h3 class="text-white text-3xl font-bold animate-fade-in">Welcome to Perfume Paradise</h3>
+        <h3 class="text-white text-3xl font-bold animate-fade-in">Welcome to Perfume Siren's perfumes  </h3>
     </div>
 </div>
 
@@ -21,6 +21,12 @@
     @else
         <p class="text-gray-600">No About section available.</p>
     @endif
+    <ul class="mt-4 mb-8 space-y-3">
+        <li class="ml-4"><strong>Luxurious & Unique Blends</strong> – Handpicked ingredients for unforgettable fragrances.</li>
+        <li class="ml-4"><strong>Alluring & Mystical Aesthetics</strong> – Bottles designed to mesmerize, just like the sirens of legend.</li>
+        <li class="ml-4"><strong>For Every Personality</strong> – From fierce and daring to delicate and dreamy.</li>
+        <li class="ml-4"><strong>Ethically Crafted</strong> – Cruelty-free, sustainably sourced, and made with passion.</li>
+    </ul>
 </div>
 @endsection
 

@@ -51,8 +51,4 @@
     </div>
   </section>
 
-  <!-- Include Swiper.js -->
-
-
-
 @endsection

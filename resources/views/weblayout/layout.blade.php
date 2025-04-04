@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paradise</title>
+    <title>Paradise Perfume</title>
         <!-- Gogle Material Icons -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <!--slides -->
@@ -53,7 +53,7 @@
         <!-- Logo Section -->
         <div class="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-full shadow-lg">
             <img src="img/logo.jpeg" alt="Perfume Logo" class="w-20 h-20 rounded-full">
-            <span class="text-lg font-bold">Paradise</span>
+            <span class="text-lg font-bold">Paradise Perfume</span>
         </div>
         
         <!-- Mobile Menu Button -->
@@ -70,10 +70,7 @@
             <li><a href="{{ route('brand') }}" class="hover:text-gray-400">Brand</a></li>
             <li><a href="{{ route('contact.store' ) }}" class="hover:text-gray-400">Contact</a></li>
                  <!-- Cart Icon -->
-                 <a href="" class="relative hover:text-gray-400">
-                <i class="material-icons">shopping_cart</i>
-                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full" id="cart-count">0</span>
-            </a>
+            
         </ul>
     </div>
 
@@ -96,6 +93,7 @@
 
 <!-- JavaScript for Mobile Menu Toggle -->
     @yield('content')
+    
     <footer class="bg-black text-white text-center p-6 mt-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
             <!-- About Us Section -->
@@ -252,6 +250,7 @@ function nextSlide() {
         });
     });
 
+    
 </script>
     
         
