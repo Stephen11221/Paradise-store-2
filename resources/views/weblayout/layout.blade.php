@@ -10,9 +10,10 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="shortcut icon" href="img/logo.jpeg" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="img/logo.jpeg" class=" rounded-lg" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="script.js"></script>
 
 <!-- Tailwind Custom Animation -->
@@ -70,7 +71,7 @@
             <li><a href="{{ route('brand') }}" class="hover:text-gray-400">Brand</a></li>
             <li><a href="{{ route('contact.store' ) }}" class="hover:text-gray-400">Contact</a></li>
                  <!-- Cart Icon -->
-            
+    
         </ul>
     </div>
 
@@ -83,11 +84,7 @@
         <li><a href="{{ route('product.view') }}" class="hover:text-gray-400">Product</a>        </li>                    
         <li><a href="{{ route('brand') }}" class="hover:text-gray-400">Brand</a></li>
         <li><a href="{{ route('contact') }}" class="hover:text-gray-400">Contact</a></li>
-                <!-- Cart Icon -->
-                <a href="" class="relative hover:text-gray-400">
-                    <i class="material-icons">shopping_icon</i>
-                    <span class="absolute -top-2 -right-2bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full" id="cart-count">0</span>
-                </a>
+                
     </ul>
 </nav>
 
